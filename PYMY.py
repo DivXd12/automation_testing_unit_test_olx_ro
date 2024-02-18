@@ -18,7 +18,7 @@ class OLXHomePageTests(unittest.TestCase):
     #  test pentru verificarea titlului paginii
     def test_Title(self):
         title = self.driver.title  # obținem titlul paginii
-        self.assertEqual(title, "OLX.ro - Anunțuri pe gratis")  # verificăm dacă titlul este cel asteptat
+        self.assertEqual(title, "OLX.ro - Anunțuri Gratuite")  # verificăm dacă titlul este cel asteptat
 
     # test pentru căutarea unui produs
     def test_Search(self):
@@ -53,7 +53,7 @@ class OLXHomePageTests(unittest.TestCase):
         # Test pentru selectarea unei categorii
     def test_SelectCategory(self):
         category_link = self.driver.find_element_by_link_text(
-            "https://www.olx.ro/imobiliare/")  # Gasesc link-ul catre categoria "Imobiliare"
+            "https://www.olx.ro/imobiliare")  # Gasesc link-ul catre categoria "Imobiliare"
         category_link.click()  # Dau click pe link-ul catre categoria "Imobiliare"
         self.assertIn("imobiliare", self.driver.current_url)  # Verific ca URL-ul actual contine "imobiliare"
 
