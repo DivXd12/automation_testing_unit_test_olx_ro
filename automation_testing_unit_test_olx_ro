@@ -57,6 +57,11 @@ class OLXHomePageTests(unittest.TestCase):
         category_link.click()  # Dau click pe link-ul catre categoria "Imobiliare"
         self.assertIn("imobiliare", self.driver.current_url)  # Verific ca URL-ul actual contine "imobiliare"
 
+     # Test pentru actualizarea unei resurse cu cererea PATCH
+    def test_PatchResource(self):
+        # Aici adaugă codul pentru a efectua o cerere PATCH către server
+        # Verifică dacă actualizarea s-a făcut cu succes
+
 
 # daca rulez fisierul acesta, se vor executa toate testele
 if __name__ == "__main__":
