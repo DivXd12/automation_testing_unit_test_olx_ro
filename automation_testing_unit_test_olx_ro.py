@@ -1,7 +1,10 @@
 # import modulele necesare
+import time
 import unittest  #Importă modulul pentru crearea și rularea de teste
 from selenium import webdriver  # Importă modulul pentru interacțiunea cu browserele web
 from selenium.common.exceptions import NoSuchElementException  #Importă clasa pentru gestionarea excepției când un element nu este găsit
+from selenium.webdriver.common.by import By
+
 
 # definesc clasa de test pentru pagina principală OLX
 class OLXHomePageTests(unittest.TestCase):
@@ -10,6 +13,11 @@ class OLXHomePageTests(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()  # initiez driverul de Chrome
         self.driver.get("https://www.olx.ro/")  # deschid pagina principală OLX
+        self.driver.maximize_window() #maximizez ecranul
+        #acceptam modulele "Cookies": css.BY id="onetrust-accept-btn-handler"
+        self.driver.find_element(By.CSS_SELECTOR, '[id="onetrust-accept-btn-handler"]').click()
+        #configuram wait-ul implicit
+        self.driver.implicitly_wait(3)
 
     # tearDown se va executa dupa fiecare test
     def tearDown(self):
@@ -18,15 +26,19 @@ class OLXHomePageTests(unittest.TestCase):
     #  test pentru verificarea titlului paginii
     def test_Title(self):
         title = self.driver.title  # obținem titlul paginii
-        self.assertEqual(title, "OLX.ro - Anunțuri Gratuite")  # verificăm dacă titlul este cel asteptat
+        self.assertEqual(title, "Anunturi Gratuite - Peste 4 milioane anunturi - OLX.ro")  # verificăm dacă titlul este cel asteptat
 
     # test pentru căutarea unui produs
     def test_Search(self):
-        search_box = self.driver.find_element_by_id("search")  # Gasesc box-ul de cautare dupa id
+        #time.sleep(2)
+        search_box = self.driver.find_element(By.ID, "search")  # Gasesc box-ul de cautare dupa id
         search_box.send_keys("bicicleta")  # Introduc textul "bicicleta" in campul de cautare
-        search_button = self.driver.find_element_by_id("search-submit")  # Gasesc butonul de cautare
+        #time.sleep(2)
+        search_button = self.driver.find_element(By.CSS_SELECTOR, 'button[name="searchBtn"]') # Caut butonul de cautare folosind un CSS Selector care filtreaza dupa 'Tag button" si valoare atribut: name="searchBtn"
         search_button.click()  # Dau click pe butonul de căutare
+        time.sleep(2)
         self.assertTrue("bicicleta" in self.driver.current_url)  # Verific dacă URL-ul contine cuvantul cautat
+
 
     # Test pentru verificarea accesului la pagina de autentificare
     def test_AccessLoginPage(self):
@@ -61,6 +73,7 @@ class OLXHomePageTests(unittest.TestCase):
     def test_PatchResource(self):
         # Aici adaugă codul pentru a efectua o cerere PATCH către server
         # Verifică dacă actualizarea s-a făcut cu succes
+        pass
 
 
 # daca rulez fisierul acesta, se vor executa toate testele
