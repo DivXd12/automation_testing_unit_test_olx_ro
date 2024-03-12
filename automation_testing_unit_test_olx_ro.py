@@ -30,10 +30,10 @@ class OLXHomePageTests(unittest.TestCase):
 
     # test pentru căutarea unui produs
     def test_Search(self):
-        #time.sleep(2)
+        time.sleep(2)
         search_box = self.driver.find_element(By.ID, "search")  # Gasesc box-ul de cautare dupa id
         search_box.send_keys("bicicleta")  # Introduc textul "bicicleta" in campul de cautare
-        #time.sleep(2)
+        time.sleep(2)
         search_button = self.driver.find_element(By.CSS_SELECTOR, 'button[name="searchBtn"]') # Caut butonul de cautare folosind un CSS Selector care filtreaza dupa 'Tag button" si valoare atribut: name="searchBtn"
         search_button.click()  # Dau click pe butonul de căutare
         time.sleep(2)
@@ -42,15 +42,16 @@ class OLXHomePageTests(unittest.TestCase):
 
     # Test pentru verificarea accesului la pagina de autentificare
     def test_AccessLoginPage(self):
-        login_button = self.driver.find_element_by_class_name("button-text-wrapper")  # Gasesc butonul de login dupa clasa
+        login_button = self.driver.find_element (By.CLASS_NAME,"css-12l1k7f")  # Gasesc butonul de login dupa clasa
+        time.sleep(4)
         login_button.click()  # Dau click pe butonul de login
-        self.assertIn("account", self.driver.current_url)  # Verific daca am fost redirecționat pe pagina de login care conține "account" în URL
+        time.sleep(3)
+        self.assertIn("login", self.driver.current_url)  # Verific daca am fost redirecționat pe pagina de login care conține "login" în URL
 
         # Test pentru verificarea existentei butonului "Adauga anunt nou"
     def test_SellButtonExists(self):
         try:
-            sell_button = self.driver.find_element_by_id(
-                "post-new-add-button")  # Incerc sa gasesc butonul de "Adauga anunt nou"
+            sell_button = self.driver.find_element (By.CLASS_NAME, "css-2txnih")  # Incerc sa gasesc butonul de "Adauga anunt nou"
             exists = True
         except NoSuchElementException: # NoSuchElementException este folosit pentru a intercepta cazul în care un element nu este gasit. si este deja importata
             exists = False
@@ -58,15 +59,21 @@ class OLXHomePageTests(unittest.TestCase):
 
         # Test pentru adaugare anunt fara a fi logat
     def test_AddAdWithoutLogin(self):
-        sell_button = self.driver.find_element_by_class_name("css-2txnih")  # Gasesc butonul de "Adauga anunt nou"
+        sell_button = self.driver.find_element(By.CLASS_NAME, "css-2txnih")  # Gasesc butonul de "Adauga anunt nou"
         sell_button.click()  # Dau click pe butonul de adaugare anunt
+        time.sleep(4)
         self.assertIn("login", self.driver.current_url)  # Verific ca sunt pe pagina de login
 
         # Test pentru selectarea unei categorii
     def test_SelectCategory(self):
-        category_link = self.driver.find_element_by_link_text(
-            "https://www.olx.ro/imobiliare")  # Gasesc link-ul catre categoria "Imobiliare"
-        category_link.click()  # Dau click pe link-ul catre categoria "Imobiliare"
+        category_links = self.driver.find_elements(By.CSS_SELECTOR, '[class="css-1gpccxq"]')  # Gasesc link-ul catre categoria "Imobiliare"
+        category_links[1].click()  # Dau click pe link-ul catre categoria "Imobiliare"
+        #alegem "Case de vanzare" din subcategoria Imobiliare
+        imobiliare = self.driver.find_elements(By.CSS_SELECTOR, '[class="css-f0mzyq"]')
+        imobiliare[2].click()
+        #print("Category links:", category_links[1].get_attribute("href") )
+        #print(len(category_links))
+        time.sleep(5)
         self.assertIn("imobiliare", self.driver.current_url)  # Verific ca URL-ul actual contine "imobiliare"
 
      # Test pentru actualizarea unei resurse cu cererea PATCH
