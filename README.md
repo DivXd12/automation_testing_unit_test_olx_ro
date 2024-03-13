@@ -20,7 +20,7 @@ test_SellButtonExists: Verifica daca butonul de "Adauga anunt nou" exista pe pag
 test_AddAdWithoutLogin: Incearca să adauge un anunț fara a fi logat si verifică dacă este redirectionat catre pagina de login.
 test_SelectCategory: Selecteaza o categorie ('Imobiliare') si verifica daca URL-ul actual contine cuvantul respectiv.
 
-Framework-ul folosit:
+FRAMEWORK-UL FOLOSIT
 
 unittest: Un framework de testare ce vine incorporat în limbajul Python, utilizat pentru crearea de teste, asertiuni și organizarea rularii lor.
 Rezultatele obtinute:
