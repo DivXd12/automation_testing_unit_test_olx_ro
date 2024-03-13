@@ -2,7 +2,8 @@
 Proiectul final folosind libraria Unit Test
 
 Structura proiectului:
-- [x] Write the press release
+- [x] Write general information
+- [x] Short presentation of each term used in the project
 - [x] Update the website
 
 ​Proiectul este creat folosind framework-ul unittest al limbajului Python pentru a crea teste automatizate pentru site-ul OLX.ro. Proiectul are o clasa numită OLXHomePageTests, care mosteneste de la unittest.TestCase și contine mai multe metode:
